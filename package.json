@@ -1,0 +1,28 @@
+{
+  "name": "markdown-edge-for-agents",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Markdown for Agents, on any Edge. Free tier ready.",
+  "repository": "github:adhenawer/markdown-edge-for-agents",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter ./packages/create test:e2e",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "@changesets/cli": "^2.27.0",
+    "typescript": "^5.5.0"
+  },
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=22"
+  }
+}
