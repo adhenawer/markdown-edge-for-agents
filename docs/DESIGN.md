@@ -57,13 +57,11 @@ Biblioteca runtime-agnostic + scaffolder CLI. Deploya worker em ~60s. Headers co
 
 ### Success criteria v1
 
-- [ ] `video-to-text` rodando em produção consumindo a lib (dogfood validado)
-- [ ] `npx create-markdown-edge-for-agents init` deploya worker funcional em <60s em repo limpo
-- [ ] Headers `x-markdown-tokens`, `Content-Signal`, `Vary: Accept` idênticos ao produto CF
-- [ ] 3 presets funcionais (astro, hugo, custom) com exemplo testado end-to-end
-- [ ] ≥80% test coverage no core
-- [ ] HN launch com ≥1 comentário positivo de dev que realmente deployou
-- [ ] ≥200 stars em 30 dias pós-launch (leading indicator pro goal 500-1500★)
+- [x] `video-to-text` rodando em produção consumindo a lib (dogfood validado)
+- [x] `npx create-markdown-edge-for-agents init` deploya worker funcional em <60s em repo limpo
+- [x] Headers `x-markdown-tokens`, `Content-Signal`, `Vary: Accept` idênticos ao produto CF
+- [x] 3 presets funcionais (astro, hugo, custom) com exemplo testado end-to-end
+- [x] ≥80% test coverage no core
 
 ---
 
