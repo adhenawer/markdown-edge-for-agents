@@ -20,10 +20,7 @@ function escapeRegex(s: string): string {
   return s.replace(/[.+?^${}()|[\]\\]/g, "\\$&");
 }
 
-export function matchRedirect(
-  url: URL,
-  rules: Record<string, string>,
-): RedirectMatch | null {
+export function matchRedirect(url: URL, rules: Record<string, string>): RedirectMatch | null {
   const pathname = url.pathname;
 
   // 1. Exact match wins over glob.

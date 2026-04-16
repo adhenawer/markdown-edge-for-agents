@@ -1,6 +1,6 @@
 import { presets } from "../presets/index.js";
 import { userConfigSchema } from "./schema.js";
-import type { UserConfig, ResolvedConfig } from "./types.js";
+import type { ResolvedConfig, UserConfig } from "./types.js";
 
 const DEFAULTS = {
   cache: { maxAge: 3600, staleWhileRevalidate: 86400 },

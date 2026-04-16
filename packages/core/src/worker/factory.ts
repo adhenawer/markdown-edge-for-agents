@@ -20,13 +20,13 @@
  *      bug out-of-band.
  */
 
-import { convertHtmlToMarkdown } from "../converter/index.js";
-import { buildFrontmatter } from "../converter/frontmatter.js";
 import { resolveConfig } from "../config/resolve.js";
-import type { UserConfig, ResolvedConfig } from "../config/types.js";
+import type { ResolvedConfig, UserConfig } from "../config/types.js";
+import { buildFrontmatter } from "../converter/frontmatter.js";
+import { convertHtmlToMarkdown } from "../converter/index.js";
+import { buildResponseHeaders } from "./headers.js";
 import { wantsMarkdown } from "./negotiate.js";
 import { matchRedirect } from "./redirects.js";
-import { buildResponseHeaders } from "./headers.js";
 
 type FetchHandler = NonNullable<ExportedHandler["fetch"]>;
 
@@ -108,10 +108,7 @@ export function createMarkdownWorker(userConfig: UserConfig): ExportedHandler {
         // eslint-disable-next-line no-console
         console.error("[mdea] conversion failed:", err);
       }
-      const message = (err instanceof Error ? err.message : String(err)).slice(
-        0,
-        200,
-      );
+      const message = (err instanceof Error ? err.message : String(err)).slice(0, 200);
       return new Response(html, {
         status: 200,
         headers: {

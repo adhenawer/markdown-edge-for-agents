@@ -1,6 +1,6 @@
 import { astroPreset } from "./astro.js";
-import { hugoPreset } from "./hugo.js";
 import { customPreset } from "./custom.js";
+import { hugoPreset } from "./hugo.js";
 
 export const presets = {
   astro: astroPreset,

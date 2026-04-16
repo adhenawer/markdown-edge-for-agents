@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import { Miniflare } from "miniflare";
+import { describe, expect, it } from "vitest";
 import { convertHtmlToMarkdown } from "../../src/converter/index.js";
 
 describe("CF Workers compatibility", () => {
@@ -26,7 +26,7 @@ describe("CF Workers compatibility", () => {
     // the same API via the native global.
     const result = await convertHtmlToMarkdown(
       "<html><body><article><h1>T</h1></article></body></html>",
-      { selector: "article", strip: [], frontmatter: ["title"] }
+      { selector: "article", strip: [], frontmatter: ["title"] },
     );
     expect(result).not.toBeNull();
   });

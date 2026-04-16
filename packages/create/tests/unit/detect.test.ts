@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest";
-import { detectFramework } from "../../src/detect.js";
-import { writeFileSync, mkdtempSync } from "node:fs";
-import { join } from "node:path";
+import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { describe, expect, it } from "vitest";
+import { detectFramework } from "../../src/detect.js";
 
 function tmp(): string {
   return mkdtempSync(join(tmpdir(), "mdea-test-"));
@@ -11,10 +11,7 @@ function tmp(): string {
 describe("detectFramework", () => {
   it("detects astro from package.json deps", () => {
     const dir = tmp();
-    writeFileSync(
-      join(dir, "package.json"),
-      JSON.stringify({ dependencies: { astro: "^4.0.0" } }),
-    );
+    writeFileSync(join(dir, "package.json"), JSON.stringify({ dependencies: { astro: "^4.0.0" } }));
     expect(detectFramework(dir)).toBe("astro");
   });
 

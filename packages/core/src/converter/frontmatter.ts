@@ -26,11 +26,10 @@ export function buildFrontmatter(fields: FrontmatterFields): string {
   const lines: string[] = ["---"];
   if (fields.title) lines.push(`title: "${escapeYaml(fields.title)}"`);
   if (fields.author) lines.push(`author: "${escapeYaml(fields.author)}"`);
-  if (fields.description)
-    lines.push(`description: "${escapeYaml(fields.description)}"`);
+  if (fields.description) lines.push(`description: "${escapeYaml(fields.description)}"`);
   lines.push(`source: "${escapeYaml(fields.source)}"`);
   lines.push(`lang: ${fields.lang ?? "en"}`);
   lines.push("---");
   lines.push("");
-  return lines.join("\n") + "\n";
+  return `${lines.join("\n")}\n`;
 }

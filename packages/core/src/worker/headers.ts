@@ -55,10 +55,7 @@ export function buildResponseHeaders(
       headers.set("x-markdown-debug-bytes-out", String(ctx.bytesOut));
     }
     if (ctx.selectorMatched !== undefined) {
-      headers.set(
-        "x-markdown-debug-selector",
-        ctx.selectorMatched ? "matched" : "not-found",
-      );
+      headers.set("x-markdown-debug-selector", ctx.selectorMatched ? "matched" : "not-found");
     }
   }
 

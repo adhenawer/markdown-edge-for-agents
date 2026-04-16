@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { extractMeta } from "../../../src/converter/extractMeta.js";
 
 const html = `
@@ -22,9 +22,7 @@ describe("extractMeta", () => {
   });
 
   it("defaults lang to en when missing", async () => {
-    const meta = await extractMeta(
-      "<html><head><title>X</title></head><body></body></html>"
-    );
+    const meta = await extractMeta("<html><head><title>X</title></head><body></body></html>");
     expect(meta.lang).toBe("en");
   });
 

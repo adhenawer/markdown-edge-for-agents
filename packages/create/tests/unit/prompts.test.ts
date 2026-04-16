@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import prompts from "prompts";
+import { describe, expect, it } from "vitest";
 import { runPrompts } from "../../src/prompts.js";
 
 describe("runPrompts", () => {

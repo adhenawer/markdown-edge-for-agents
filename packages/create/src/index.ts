@@ -40,9 +40,7 @@ async function main(): Promise<void> {
   try {
     await execa("npm", ["install"], { cwd: workerDir, stdio: "inherit" });
   } catch {
-    console.log(
-      kleur.yellow(`npm install falhou. Rode manualmente em ${workerDir}`),
-    );
+    console.log(kleur.yellow(`npm install falhou. Rode manualmente em ${workerDir}`));
   }
 
   console.log();

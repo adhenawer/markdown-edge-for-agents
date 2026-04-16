@@ -4,9 +4,9 @@
  * Workers where HTMLRewriter is a native global, so tests only need the shim.
  */
 import {
-  HTMLRewriter as WasmHTMLRewriter,
-  type ElementHandlers,
   type DocumentHandlers,
+  type ElementHandlers,
+  HTMLRewriter as WasmHTMLRewriter,
 } from "html-rewriter-wasm";
 
 type Selector = string;
@@ -75,5 +75,4 @@ class CFHTMLRewriter {
 }
 
 // Install as global
-(globalThis as unknown as { HTMLRewriter: typeof CFHTMLRewriter }).HTMLRewriter =
-  CFHTMLRewriter;
+(globalThis as unknown as { HTMLRewriter: typeof CFHTMLRewriter }).HTMLRewriter = CFHTMLRewriter;

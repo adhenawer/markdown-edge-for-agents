@@ -25,7 +25,7 @@ interface MinimalRewriter {
     handlers: {
       element?: (el: MinimalElement) => void;
       text?: (chunk: MinimalTextChunk) => void;
-    }
+    },
   ): MinimalRewriter;
   transform(response: Response): Response;
 }
@@ -35,12 +35,11 @@ type RewriterCtor = new () => MinimalRewriter;
 export async function extractMeta(html: string): Promise<Meta> {
   const meta: Meta = { title: "", description: "", author: "", lang: "en" };
 
-  const Ctor = (globalThis as unknown as { HTMLRewriter: RewriterCtor })
-    .HTMLRewriter;
+  const Ctor = (globalThis as unknown as { HTMLRewriter: RewriterCtor }).HTMLRewriter;
   if (!Ctor) {
     throw new Error(
       "HTMLRewriter is not available in this runtime. " +
-        "This module requires Cloudflare Workers or a compatible polyfill."
+        "This module requires Cloudflare Workers or a compatible polyfill.",
     );
   }
 

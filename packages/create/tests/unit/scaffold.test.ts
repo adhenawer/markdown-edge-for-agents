@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest";
-import { scaffoldProject } from "../../src/scaffold.js";
-import { mkdtempSync, readFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { describe, expect, it } from "vitest";
+import { scaffoldProject } from "../../src/scaffold.js";
 
 describe("scaffoldProject", () => {
   it("creates worker, wrangler.toml, package.json", () => {

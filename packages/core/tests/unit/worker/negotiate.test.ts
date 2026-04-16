@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { wantsMarkdown } from "../../../src/worker/negotiate.js";
 
 function req(headers: Record<string, string>): Request {

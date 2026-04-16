@@ -34,8 +34,7 @@ export async function runPrompts(ctx: {
       name: "pattern",
       type: "text",
       message: "Route pattern (ex: example.com/posts/*):",
-      initial: (_prev: unknown, all: { zone?: string }) =>
-        `${all.zone ?? "example.com"}/*`,
+      initial: (_prev: unknown, all: { zone?: string }) => `${all.zone ?? "example.com"}/*`,
     },
   ]);
 

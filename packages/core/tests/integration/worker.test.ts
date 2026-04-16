@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { createMarkdownWorker } from "../../src/worker/factory.js";
 
 const config = {
@@ -33,11 +33,7 @@ describe("createMarkdownWorker", () => {
   beforeAll(() => {
     globalThis.fetch = vi.fn(async (input: Parameters<typeof fetch>[0]) => {
       const url =
-        typeof input === "string"
-          ? input
-          : input instanceof URL
-            ? input.toString()
-            : input.url;
+        typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
       if (url.endsWith("/no-article")) {
         return new Response("<html><body></body></html>", {
           headers: { "Content-Type": "text/html" },
@@ -70,7 +66,7 @@ describe("createMarkdownWorker", () => {
     const req = new Request("https://example.com/browser-html", {
       headers: { Accept: "text/html" },
     });
-    const res = await worker.fetch!(req, {} as never, {} as never);
+    const res = await worker.fetch?.(req, {} as never, {} as never);
     expect(res.headers.get("Content-Type")).toMatch(/text\/html/);
   });
 
@@ -78,7 +74,7 @@ describe("createMarkdownWorker", () => {
     const req = new Request("https://example.com/post", {
       headers: { Accept: "text/markdown" },
     });
-    const res = await worker.fetch!(req, {} as never, {} as never);
+    const res = await worker.fetch?.(req, {} as never, {} as never);
     expect(res.headers.get("Content-Type")).toMatch(/text\/markdown/);
     expect(res.headers.get("Vary")).toBe("Accept");
     expect(res.headers.get("x-markdown-tokens")).toBeTruthy();
@@ -92,18 +88,16 @@ describe("createMarkdownWorker", () => {
     const req = new Request("https://example.com/leituras/foo.html", {
       redirect: "manual",
     });
-    const res = await worker.fetch!(req, {} as never, {} as never);
+    const res = await worker.fetch?.(req, {} as never, {} as never);
     expect(res.status).toBe(301);
-    expect(res.headers.get("Location")).toBe(
-      "https://example.com/posts/pt_br/foo.html",
-    );
+    expect(res.headers.get("Location")).toBe("https://example.com/posts/pt_br/foo.html");
   });
 
   it("returns 404 when article selector not found", async () => {
     const req = new Request("https://example.com/no-article", {
       headers: { Accept: "text/markdown" },
     });
-    const res = await worker.fetch!(req, {} as never, {} as never);
+    const res = await worker.fetch?.(req, {} as never, {} as never);
     expect(res.status).toBe(404);
   });
 
@@ -111,7 +105,7 @@ describe("createMarkdownWorker", () => {
     const req = new Request("https://example.com/non-html", {
       headers: { Accept: "text/markdown" },
     });
-    const res = await worker.fetch!(req, {} as never, {} as never);
+    const res = await worker.fetch?.(req, {} as never, {} as never);
     expect(res.headers.get("Content-Type")).toMatch(/application\/pdf/);
   });
 
@@ -120,7 +114,7 @@ describe("createMarkdownWorker", () => {
     const req = new Request("https://example.com/post", {
       headers: { Accept: "text/markdown" },
     });
-    const res = await explodingWorker.fetch!(req, {} as never, {} as never);
+    const res = await explodingWorker.fetch?.(req, {} as never, {} as never);
     expect(res.status).toBe(200);
     expect(res.headers.get("Content-Type")).toMatch(/text\/html/);
     expect(res.headers.get("x-markdown-error")).toBeTruthy();

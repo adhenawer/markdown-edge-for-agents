@@ -25,7 +25,7 @@
  */
 
 import { convert } from "markdown-for-agents";
-import { extractMeta, type Meta } from "./extractMeta.js";
+import { type Meta, extractMeta } from "./extractMeta.js";
 
 export interface ConverterConfig {
   /** CSS selector identifying the primary content root (e.g. `"article"`). */
@@ -47,22 +47,18 @@ interface MinimalElement {
 }
 
 interface MinimalRewriter {
-  on(
-    selector: string,
-    handlers: { element?: (el: MinimalElement) => void }
-  ): MinimalRewriter;
+  on(selector: string, handlers: { element?: (el: MinimalElement) => void }): MinimalRewriter;
   transform(response: Response): Response;
 }
 
 type RewriterCtor = new () => MinimalRewriter;
 
 function getRewriter(): RewriterCtor {
-  const Ctor = (globalThis as unknown as { HTMLRewriter?: RewriterCtor })
-    .HTMLRewriter;
+  const Ctor = (globalThis as unknown as { HTMLRewriter?: RewriterCtor }).HTMLRewriter;
   if (!Ctor) {
     throw new Error(
       "HTMLRewriter is not available in this runtime. " +
-        "This module requires Cloudflare Workers or a compatible polyfill."
+        "This module requires Cloudflare Workers or a compatible polyfill.",
     );
   }
   return Ctor;
@@ -76,7 +72,7 @@ function getRewriter(): RewriterCtor {
 async function cleanAndDetect(
   html: string,
   selector: string,
-  strip: readonly string[]
+  strip: readonly string[],
 ): Promise<{ cleaned: string; selectorMatched: boolean }> {
   const Ctor = getRewriter();
   const rewriter = new Ctor();
@@ -105,15 +101,11 @@ async function cleanAndDetect(
 
 export async function convertHtmlToMarkdown(
   html: string,
-  config: ConverterConfig
+  config: ConverterConfig,
 ): Promise<ConversionResult | null> {
   const meta = await extractMeta(html);
 
-  const { cleaned, selectorMatched } = await cleanAndDetect(
-    html,
-    config.selector,
-    config.strip
-  );
+  const { cleaned, selectorMatched } = await cleanAndDetect(html, config.selector, config.strip);
   if (!selectorMatched) return null;
 
   const result = convert(cleaned, {
