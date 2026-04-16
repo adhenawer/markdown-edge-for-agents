@@ -8,9 +8,9 @@ Drop-in open-source alternative to Cloudflare's [Markdown for Agents](https://bl
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Status](https://img.shields.io/badge/status-pre--release-orange.svg)](#roadmap)
 
-> **Status:** Pre-release. `v0.1.0` is not yet published on npm — use via local workspace protocol for now.
+[![npm](https://img.shields.io/npm/v/@adhenawer-pkg/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer-pkg/markdown-edge-for-agents)
 
-_(demo GIF coming soon)_
+![demo](./docs/demo.gif)
 
 ## Quick start
 
