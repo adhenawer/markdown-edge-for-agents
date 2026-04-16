@@ -8,12 +8,12 @@
 
 | Phase | Tasks | Status | Commit(s) | Notes |
 |---|---|---|---|---|
-| 0 | Setup monorepo | ⏳ | — | pnpm workspaces, biome, changesets, both packages scaffolded |
-| 1 | Converter adapter | ⏳ | — | adapter + meta + frontmatter + integration tests |
-| 2 | Config + presets | ⏳ | — | zod schema, resolver, astro/hugo/custom presets |
-| 3 | Worker factory | ⏳ | — | negotiate, redirects, headers, factory + integration |
-| 4 | Scaffolder CLI | ⏳ | — | detect, prompts, scaffold, CLI entry — PARALLEL with 3 |
-| 5 | Examples + docs + CI | ⏳ | — | 3 example workers, README, CONTRIBUTING, GitHub Actions |
+| 0 | Setup monorepo | ✅ | b326b47, 32f8e2f, 7ef06a3 | pnpm 9.12, biome, changesets, core + create scaffolded. Builds verde. pnpm instalado via corepack. |
+| 1 | Converter adapter | ✅ | 45372f0, 99738a1, 6aeb88f, bf5e385 | 14 tests pass. API real diff: usa `extract` (bool/opts) sem `selector`. Adapter compensa: HTMLRewriter prévio pra strip + gate. Polyfill `html-rewriter-wasm` em tests. Concerns: selector vira "gate", não scope estrito — afeta Phase 2 presets. |
+| 2 | Config + presets | ✅ | e6ffd35, 5122ed3, af10968 | 29 tests total (15 novos). Typecheck OK. Ajuste: `PresetConfig` type explícito em vez de `typeof astroPreset` pra compat com custom (strip vazio). |
+| 3 | Worker factory | ✅ | 7e0f242, e09be5a, c79ad7a, 8c65bf5 | 54 tests total (25 new). Fallback test via pseudo-selector inválido. Build 10.42KB. |
+| 4 | Scaffolder CLI | ✅ | ac19f00, 874f559, 2983525, a87f844, dfb5937 | 8 tests. Smoke test OK. Fix: shebang duplo (tsup banner vs source). Templates copiadas no build. PARALLEL com 3, zero conflito. |
+| 5 | Examples + docs + CI | ✅ | d6342e1, c21aa92, 4aa1d37, b1c8699, 3c268ff, 3f68c27 | 3 examples + README + CONTRIBUTING + 2 GH Actions workflows. 62 tests, lint clean (biome autofix em 33 arquivos), build green. Demo GIF placeholder. |
 
 ## Parallelism plan
 
