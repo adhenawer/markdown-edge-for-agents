@@ -1,3 +1,4 @@
+import { cpSync } from "node:fs";
 import { defineConfig } from "tsup";
 
 export default defineConfig({
@@ -8,4 +9,7 @@ export default defineConfig({
   target: "node22",
   banner: { js: "#!/usr/bin/env node" },
   sourcemap: true,
+  onSuccess: async () => {
+    cpSync("src/templates", "dist/templates", { recursive: true });
+  },
 });
