@@ -1,0 +1,8 @@
+name = "markdown-hugo-example"
+main = "src/index.ts"
+compatibility_date = "2026-04-15"
+
+# Substitua por seu domínio:
+# routes = [
+#   { pattern = "example.com/*", zone_name = "example.com" }
+# ]
