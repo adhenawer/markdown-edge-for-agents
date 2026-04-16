@@ -117,7 +117,11 @@ export async function convertHtmlToMarkdown(
   if (!selectorMatched) return null;
 
   const result = convert(cleaned, {
-    extract: true,
+    // `keepHeader: true` preserves <header> inside the main content (which
+    // commonly wraps the article's <h1>); the caller's `strip` already
+    // removed site-level chrome, so the upstream extraction mainly serves as
+    // a light safety net for residual boilerplate.
+    extract: { keepHeader: true },
     frontmatter: false,
   });
 

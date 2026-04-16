@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Astro Blog Post — Building Edge APIs</title>
+  <meta name="description" content="Notes on building edge APIs with Astro and Cloudflare Workers.">
+  <meta name="author" content="Jane Astro">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+  </nav>
+  <main data-page-type="post">
+    <article>
+      <header>
+        <h1>Building Edge APIs with Astro</h1>
+        <p class="byline">By Jane Astro · 2026-01-12</p>
+      </header>
+      <p>Astro's server islands make it easy to colocate static content with dynamic handlers. In this post we'll walk through a minimal setup.</p>
+      <h2>Prerequisites</h2>
+      <ul>
+        <li>Node 20 or later</li>
+        <li>An Astro 4.x project</li>
+        <li>A Cloudflare account (free tier works)</li>
+      </ul>
+      <h2>The handler</h2>
+      <p>Create a file at <code>src/pages/api/hello.ts</code> with a named <code>GET</code> export.</p>
+      <pre><code>export const GET = () =&gt; new Response("hi");</code></pre>
+      <p>Deploy with <code>wrangler deploy</code> and you're live.</p>
+    </article>
+    <aside class="related">
+      <h3>Related posts</h3>
+      <ul>
+        <li><a href="/blog/cf-workers-101">Workers 101</a></li>
+        <li><a href="/blog/islands">Islands deep dive</a></li>
+      </ul>
+    </aside>
+  </main>
+  <footer>
+    <p>&copy; 2026 Jane Astro</p>
+  </footer>
+  <script>window.__ASTRO__ = true;</script>
+</body>
+</html>

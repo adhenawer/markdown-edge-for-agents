@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hugo Post — Deploy to the Edge</title>
+  <meta name="description" content="Short walkthrough of deploying a Hugo site to Cloudflare Pages.">
+  <meta name="author" content="Hank Hugo">
+</head>
+<body>
+  <header class="site-header">
+    <nav>
+      <a href="/">Home</a>
+      <a href="/posts/">Posts</a>
+    </nav>
+  </header>
+  <main class="single">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">Deploy Hugo to the Edge</h1>
+        <p class="post-meta">Hank Hugo · 2026-02-03</p>
+      </header>
+      <div class="post-content">
+        <p>Hugo builds absurdly fast static sites. Pairing it with Cloudflare Pages gives you a free, global CDN in minutes.</p>
+        <h2>Steps</h2>
+        <ol>
+          <li>Run <code>hugo --minify</code> to build the site.</li>
+          <li>Push the <code>public/</code> directory to a GitHub repository.</li>
+          <li>Connect the repository on Cloudflare Pages.</li>
+        </ol>
+        <p>That's all — your site is now served from hundreds of edge locations.</p>
+        <blockquote>
+          <p>Static sites on the edge are the cheapest, fastest way to serve content at scale.</p>
+        </blockquote>
+      </div>
+      <div class="social-share">
+        <a href="#twitter">Tweet</a>
+        <a href="#mastodon">Toot</a>
+      </div>
+      <nav class="post-nav">
+        <a href="/posts/prev/">Previous</a>
+        <a href="/posts/next/">Next</a>
+      </nav>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>Built with Hugo.</p>
+  </footer>
+</body>
+</html>
