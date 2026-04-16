@@ -7,7 +7,7 @@
     "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@adhenawer/markdown-edge-for-agents": "workspace:*"
+    "@adhenawer-pkg/markdown-edge-for-agents": "workspace:*"
   },
   "devDependencies": {
     "wrangler": "^4"

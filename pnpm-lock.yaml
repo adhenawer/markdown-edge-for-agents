@@ -20,7 +20,7 @@ importers:
 
   examples/astro-blog:
     dependencies:
-      '@adhenawer/markdown-edge-for-agents':
+      '@adhenawer-pkg/markdown-edge-for-agents':
         specifier: workspace:*
         version: link:../../packages/core
     devDependencies:
@@ -30,7 +30,7 @@ importers:
 
   examples/custom-site:
     dependencies:
-      '@adhenawer/markdown-edge-for-agents':
+      '@adhenawer-pkg/markdown-edge-for-agents':
         specifier: workspace:*
         version: link:../../packages/core
     devDependencies:
@@ -40,7 +40,7 @@ importers:
 
   examples/hugo-blog:
     dependencies:
-      '@adhenawer/markdown-edge-for-agents':
+      '@adhenawer-pkg/markdown-edge-for-agents':
         specifier: workspace:*
         version: link:../../packages/core
     devDependencies:

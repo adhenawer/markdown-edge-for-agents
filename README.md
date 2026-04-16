@@ -29,7 +29,7 @@ Detects your framework (Astro, Hugo, or custom), generates the worker + wrangler
 ## Usage as a lib
 
 ```ts
-import { createMarkdownWorker } from "@adhenawer/markdown-edge-for-agents";
+import { createMarkdownWorker } from "@adhenawer-pkg/markdown-edge-for-agents";
 
 export default createMarkdownWorker({
   preset: "custom",

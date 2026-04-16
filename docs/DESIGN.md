@@ -73,7 +73,7 @@ Biblioteca runtime-agnostic + scaffolder CLI. Deploya worker em ~60s. Headers co
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                   @adhenawer/markdown-edge-for-agents            │
+│                   @adhenawer-pkg/markdown-edge-for-agents            │
 │                                                                  │
 │  ┌──────────────┐   ┌──────────────┐   ┌────────────────────┐   │
 │  │ Preset Store │──▶│ Config Loader │──▶│  Worker Factory    │   │
@@ -191,7 +191,7 @@ export function createMarkdownWorker(config: UserConfig): ExportedHandler;
 ```
 markdown-edge-for-agents/
 ├── packages/
-│   ├── core/                          # @adhenawer/markdown-edge-for-agents
+│   ├── core/                          # @adhenawer-pkg/markdown-edge-for-agents
 │   │   ├── src/
 │   │   │   ├── converter/
 │   │   │   ├── config/
@@ -229,7 +229,7 @@ markdown-edge-for-agents/
 | TypeScript com tsup | JavaScript puro ou vite-lib | Autocomplete do config é valor grande, tsup compila bundle CF Workers-ready |
 | Zod pra validar config | Validação manual | Erros claros no startup, tipagem runtime + compile-time |
 | HTMLRewriter native | Regex / Turndown | Streaming, correção, zero deps (nativo CF Workers) |
-| Scaffolder em package separado | Dentro do core | `npm install @adhenawer/markdown-edge-for-agents` não puxa deps de CLI (`prompts`, `execa`) |
+| Scaffolder em package separado | Dentro do core | `npm install @adhenawer-pkg/markdown-edge-for-agents` não puxa deps de CLI (`prompts`, `execa`) |
 | Presets como data, não code | Classes/funções | Fácil de serializar/inspecionar, PR da comunidade é arquivo único |
 
 ### Unidades isolavelmente testáveis
@@ -246,12 +246,12 @@ Cada componente pode ser testado sem os outros:
 
 ```bash
 cd video-to-text/workers/markdown-agent
-npm install @adhenawer/markdown-edge-for-agents
+npm install @adhenawer-pkg/markdown-edge-for-agents
 ```
 
 `src/index.ts` (substitui os 180 linhas regex por ~10):
 ```ts
-import { createMarkdownWorker } from "@adhenawer/markdown-edge-for-agents";
+import { createMarkdownWorker } from "@adhenawer-pkg/markdown-edge-for-agents";
 
 export default createMarkdownWorker({
   preset: "custom",

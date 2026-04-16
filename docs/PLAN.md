@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Ship v1 of `@adhenawer/markdown-edge-for-agents` — biblioteca + CLI scaffolder que serve markdown para AI agents via content negotiation em Cloudflare Workers, compat 1:1 com feature Pro da Cloudflare, free-tier ready.
+**Goal:** Ship v1 of `@adhenawer-pkg/markdown-edge-for-agents` — biblioteca + CLI scaffolder que serve markdown para AI agents via content negotiation em Cloudflare Workers, compat 1:1 com feature Pro da Cloudflare, free-tier ready.
 
 **Architecture:** Monorepo pnpm com dois packages (`core` e `create`). Core expõe `createMarkdownWorker(config)` que devolve `ExportedHandler` CF Workers. HTMLRewriter streaming pra conversão. Config via zod. Scaffolder CLI separado detecta framework e gera worker + wrangler.toml.
 
@@ -281,7 +281,7 @@ git push -u origin main
 
 ```json
 {
-  "name": "@adhenawer/markdown-edge-for-agents",
+  "name": "@adhenawer-pkg/markdown-edge-for-agents",
   "version": "0.0.0",
   "description": "Markdown for Agents, on any Edge. Free tier ready.",
   "repository": "github:adhenawer/markdown-edge-for-agents",
@@ -383,7 +383,7 @@ export const version = "0.0.0";
 
 - [ ] **Step 6: Verificar que build roda**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents build`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents build`
 Expected: cria `packages/core/dist/index.js` e `index.d.ts` sem erros.
 
 - [ ] **Step 7: Commit**
@@ -562,7 +562,7 @@ describe("convertHtmlToMarkdown (adapter)", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test adapter`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test adapter`
 Expected: FAIL — module not found.
 
 - [ ] **Step 3: Implementar adapter**
@@ -613,7 +613,7 @@ export async function convertHtmlToMarkdown(
 
 - [ ] **Step 4: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test adapter`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test adapter`
 Expected: 4 tests passing.
 
 - [ ] **Step 5: Commit**
@@ -677,7 +677,7 @@ describe("extractMeta", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test extractMeta`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test extractMeta`
 
 - [ ] **Step 3: Implementar com HTMLRewriter**
 
@@ -725,7 +725,7 @@ export async function extractMeta(html: string): Promise<Meta> {
 
 - [ ] **Step 4: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test extractMeta`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test extractMeta`
 Expected: 3 tests passing.
 
 - [ ] **Step 5: Commit**
@@ -783,7 +783,7 @@ describe("buildFrontmatter", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test frontmatter`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test frontmatter`
 
 - [ ] **Step 3: Implementar**
 
@@ -816,7 +816,7 @@ export function buildFrontmatter(fields: FrontmatterFields): string {
 
 - [ ] **Step 4: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test frontmatter`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test frontmatter`
 Expected: 3 tests passing.
 
 - [ ] **Step 5: Commit**
@@ -940,7 +940,7 @@ describe("converter integration", () => {
 
 - [ ] **Step 4: Rodar testes de integração**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test integration`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test integration`
 Expected: 3 tests passing. Se a assinatura de `convert()` do upstream diferir, ajuste Task 1.1 conforme o erro.
 
 - [ ] **Step 5: Validar compat CF Workers via miniflare (sanity check rápido)**
@@ -980,7 +980,7 @@ describe("CF Workers compatibility", () => {
 
 - [ ] **Step 6: Rodar CF compat**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test cf-compat`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test cf-compat`
 Expected: pass.
 
 - [ ] **Step 7: Commit**
@@ -1054,7 +1054,7 @@ describe("userConfigSchema", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test schema`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test schema`
 
 - [ ] **Step 3: Implementar types**
 
@@ -1113,7 +1113,7 @@ export const userConfigSchema = z.object({
 
 - [ ] **Step 5: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test schema`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test schema`
 Expected: 5 tests passing.
 
 - [ ] **Step 6: Commit**
@@ -1173,7 +1173,7 @@ describe("presets catalog", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test presets`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test presets`
 
 - [ ] **Step 3: Implementar astro preset**
 
@@ -1246,7 +1246,7 @@ export type PresetConfig = typeof astroPreset;
 
 - [ ] **Step 7: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test presets`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test presets`
 Expected: 5 tests passing.
 
 - [ ] **Step 8: Commit**
@@ -1310,7 +1310,7 @@ describe("resolveConfig", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test resolve`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test resolve`
 
 - [ ] **Step 3: Implementar resolver**
 
@@ -1362,7 +1362,7 @@ export function resolveConfig(user: UserConfig): ResolvedConfig {
 
 - [ ] **Step 4: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test resolve`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test resolve`
 Expected: 5 tests passing.
 
 - [ ] **Step 5: Commit**
@@ -1419,7 +1419,7 @@ describe("wantsMarkdown", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test negotiate`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test negotiate`
 
 - [ ] **Step 3: Implementar**
 
@@ -1436,7 +1436,7 @@ export function wantsMarkdown(request: Request, forcedUserAgents: RegExp[]): boo
 
 - [ ] **Step 4: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test negotiate`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test negotiate`
 Expected: 5 tests passing.
 
 - [ ] **Step 5: Commit**
@@ -1499,7 +1499,7 @@ describe("matchRedirect", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test redirects`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test redirects`
 
 - [ ] **Step 3: Implementar**
 
@@ -1538,7 +1538,7 @@ export function matchRedirect(
 
 - [ ] **Step 4: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test redirects`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test redirects`
 Expected: 5 tests passing.
 
 - [ ] **Step 5: Commit**
@@ -1616,7 +1616,7 @@ describe("buildResponseHeaders", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test headers`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test headers`
 
 - [ ] **Step 3: Implementar**
 
@@ -1659,7 +1659,7 @@ export function buildResponseHeaders(ctx: HeadersContext, config: Pick<ResolvedC
 
 - [ ] **Step 4: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test headers`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test headers`
 Expected: 7 tests passing.
 
 - [ ] **Step 5: Commit**
@@ -1765,7 +1765,7 @@ describe("createMarkdownWorker", () => {
 
 - [ ] **Step 2: Rodar (fail)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test worker`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test worker`
 
 - [ ] **Step 3: Implementar factory**
 
@@ -1877,15 +1877,15 @@ export type { UserConfig, ResolvedConfig, PresetName } from "./config/types.js";
 
 - [ ] **Step 5: Rodar (pass)**
 
-Run: `pnpm --filter @adhenawer/markdown-edge-for-agents test worker`
+Run: `pnpm --filter @adhenawer-pkg/markdown-edge-for-agents test worker`
 Expected: 5 tests passing.
 
 - [ ] **Step 6: Verify build + typecheck**
 
 Run:
 ```bash
-pnpm --filter @adhenawer/markdown-edge-for-agents typecheck
-pnpm --filter @adhenawer/markdown-edge-for-agents build
+pnpm --filter @adhenawer-pkg/markdown-edge-for-agents typecheck
+pnpm --filter @adhenawer-pkg/markdown-edge-for-agents build
 ```
 Expected: both succeed, `dist/index.js` + `dist/index.d.ts` exportam `createMarkdownWorker`.
 
@@ -2014,7 +2014,7 @@ git push
 
 Arquivo `packages/create/src/templates/worker.ts.tmpl`:
 ```ts
-import { createMarkdownWorker } from "@adhenawer/markdown-edge-for-agents";
+import { createMarkdownWorker } from "@adhenawer-pkg/markdown-edge-for-agents";
 
 export default createMarkdownWorker({
   preset: "{{PRESET}}",{{#SELECTOR}}
@@ -2052,7 +2052,7 @@ Arquivo `packages/create/src/templates/package.json.tmpl`:
     "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@adhenawer/markdown-edge-for-agents": "^0.1.0"
+    "@adhenawer-pkg/markdown-edge-for-agents": "^0.1.0"
   },
   "devDependencies": {
     "wrangler": "^4"
@@ -2461,7 +2461,7 @@ mkdir -p examples/custom-site/src
 - [ ] **Step 2: Criar `examples/custom-site/src/index.ts`**
 
 ```ts
-import { createMarkdownWorker } from "@adhenawer/markdown-edge-for-agents";
+import { createMarkdownWorker } from "@adhenawer-pkg/markdown-edge-for-agents";
 
 export default createMarkdownWorker({
   preset: "custom",
@@ -2499,7 +2499,7 @@ compatibility_date = "2026-04-15"
     "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@adhenawer/markdown-edge-for-agents": "workspace:*"
+    "@adhenawer-pkg/markdown-edge-for-agents": "workspace:*"
   },
   "devDependencies": {
     "wrangler": "^4"
@@ -2594,7 +2594,7 @@ Arquivo `README.md`:
 
 Drop-in alternativa open source para o feature [Markdown for Agents da Cloudflare](https://blog.cloudflare.com/markdown-for-agents/) (só Pro+). Serve markdown para AI agents via content negotiation, compat 1:1 com a API oficial.
 
-[![npm](https://img.shields.io/npm/v/@adhenawer/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer/markdown-edge-for-agents)
+[![npm](https://img.shields.io/npm/v/@adhenawer-pkg/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer-pkg/markdown-edge-for-agents)
 [![CI](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/adhenawer/markdown-edge-for-agents/actions)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
@@ -2615,7 +2615,7 @@ Detecta seu framework (Astro, Hugo, ou custom), gera o worker + wrangler.toml, i
 ## Uso como lib
 
 \`\`\`ts
-import { createMarkdownWorker } from "@adhenawer/markdown-edge-for-agents";
+import { createMarkdownWorker } from "@adhenawer-pkg/markdown-edge-for-agents";
 
 export default createMarkdownWorker({
   preset: "custom",
@@ -2823,7 +2823,7 @@ Aguarda bot abrir PR, revisa, merge. Action publica no npm automaticamente.
 
 Run:
 ```bash
-npm view @adhenawer/markdown-edge-for-agents version
+npm view @adhenawer-pkg/markdown-edge-for-agents version
 npm view create-markdown-edge-for-agents version
 ```
 
@@ -2859,7 +2859,7 @@ cp src/index.js src/index.js.bak
     "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@adhenawer/markdown-edge-for-agents": "^0.1.0"
+    "@adhenawer-pkg/markdown-edge-for-agents": "^0.1.0"
   },
   "devDependencies": {
     "wrangler": "^4"
@@ -2905,7 +2905,7 @@ routes = [
 - [ ] **Step 5: Criar novo `src/index.ts`**
 
 ```ts
-import { createMarkdownWorker } from "@adhenawer/markdown-edge-for-agents";
+import { createMarkdownWorker } from "@adhenawer-pkg/markdown-edge-for-agents";
 
 export default createMarkdownWorker({
   preset: "custom",
@@ -2965,7 +2965,7 @@ curl -s -H "Accept: text/markdown" https://adhenawer.net/posts/pt_br/fabio-akita
 cd ~/Code/video-to-text
 git add workers/markdown-agent
 git rm workers/markdown-agent/src/index.js.bak
-git commit -m "refactor(workers): migrate markdown-agent to @adhenawer/markdown-edge-for-agents"
+git commit -m "refactor(workers): migrate markdown-agent to @adhenawer-pkg/markdown-edge-for-agents"
 git push
 ```
 
@@ -3122,7 +3122,7 @@ Checklist:
 
 - [x] TDD flow explícito em todas as tasks (RED → GREEN → COMMIT)
 - [x] Bash commands têm paths absolutos quando ambiguo (cd pra `video-to-text` explícito)
-- [x] Package names (`@adhenawer/markdown-edge-for-agents` vs `create-markdown-edge-for-agents`) sempre qualificados
+- [x] Package names (`@adhenawer-pkg/markdown-edge-for-agents` vs `create-markdown-edge-for-agents`) sempre qualificados
 - [x] `preset: "custom"` shape documentado (baseline vazio)
 - [x] Adapter pattern documentado: trocar lib upstream = editar 1 arquivo (`packages/core/src/converter/index.ts`)
 
