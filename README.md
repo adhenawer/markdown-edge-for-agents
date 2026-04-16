@@ -4,9 +4,11 @@
 
 Drop-in alternativa open source para o feature [Markdown for Agents da Cloudflare](https://blog.cloudflare.com/markdown-for-agents/) (só Pro+). Serve markdown para AI agents via content negotiation, compat 1:1 com a API oficial.
 
-[![npm](https://img.shields.io/npm/v/@adhenawer/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer/markdown-edge-for-agents)
-[![CI](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/adhenawer/markdown-edge-for-agents/actions)
-[![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![CI](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Status](https://img.shields.io/badge/status-pre--release-orange.svg)](#roadmap)
+
+> **Status:** Pre-release. `v0.1.0` ainda não publicado no npm — use via workspace protocol local por enquanto.
 
 _(demo GIF coming soon)_
 
