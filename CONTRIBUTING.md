@@ -7,17 +7,17 @@ pnpm install
 pnpm test
 ```
 
-## Regras
+## Rules
 
-- **TDD obrigatório** — teste primeiro, implementação depois.
-- Use `pnpm changeset` pra documentar mudanças antes do PR.
+- **TDD is mandatory** — tests first, implementation second.
+- Use `pnpm changeset` to document changes before opening a PR.
 - Lint: `pnpm lint`. Format: `pnpm format`.
 
-## Adicionar preset
+## Adding a preset
 
-1. Crie `packages/core/src/presets/<nome>.ts` seguindo pattern dos existentes
-2. Registre em `packages/core/src/presets/index.ts`
-3. Atualize enum em `packages/core/src/config/schema.ts` e `types.ts`
-4. Adicione testes em `packages/core/tests/unit/presets/`
-5. Adicione example em `examples/<nome>-site/`
-6. PR com changeset
+1. Create `packages/core/src/presets/<name>.ts` following the pattern of existing presets
+2. Register it in `packages/core/src/presets/index.ts`
+3. Update the enum in `packages/core/src/config/schema.ts` and `types.ts`
+4. Add tests in `packages/core/tests/unit/presets/`
+5. Add an example in `examples/<name>-site/`
+6. PR with changeset

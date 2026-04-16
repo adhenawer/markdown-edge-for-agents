@@ -1,13 +1,13 @@
 # Hugo blog example
 
-Worker para blogs Hugo. Usa o preset `hugo` que já traz selectors e strip list pra temas Hugo padrão.
+Worker for Hugo blogs. Uses the `hugo` preset which comes with selectors and strip list for standard Hugo themes.
 
-## Como usar
+## Usage
 
-1. Edite `wrangler.toml` com seu domínio
+1. Edit `wrangler.toml` with your domain
 2. `npm install && npx wrangler deploy`
 
-## Teste
+## Test
 
 ```bash
 curl -H "Accept: text/markdown" https://example.com/post

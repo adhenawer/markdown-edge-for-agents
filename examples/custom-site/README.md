@@ -1,14 +1,14 @@
 # Custom site example
 
-Worker para sites com HTML próprio (não Astro/Hugo).
+Worker for sites with custom HTML (not Astro/Hugo).
 
-## Como usar
+## Usage
 
-1. Edite `src/index.ts` com seus selectors
-2. Edite `wrangler.toml` com seu domínio
+1. Edit `src/index.ts` with your selectors
+2. Edit `wrangler.toml` with your domain
 3. `npm install && npx wrangler deploy`
 
-## Teste
+## Test
 
 ```bash
 curl -H "Accept: text/markdown" https://example.com/post

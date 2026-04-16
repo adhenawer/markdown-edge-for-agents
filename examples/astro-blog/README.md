@@ -1,13 +1,13 @@
 # Astro blog example
 
-Worker para blogs Astro. Usa o preset `astro` que já vem com selectors e strip list prontos pra layout padrão Astro.
+Worker for Astro blogs. Uses the `astro` preset which comes with selectors and strip list ready for the standard Astro layout.
 
-## Como usar
+## Usage
 
-1. Edite `wrangler.toml` com seu domínio
+1. Edit `wrangler.toml` with your domain
 2. `npm install && npx wrangler deploy`
 
-## Teste
+## Test
 
 ```bash
 curl -H "Accept: text/markdown" https://example.com/post

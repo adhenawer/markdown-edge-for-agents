@@ -2,13 +2,13 @@
 
 > Markdown for Agents, on any Edge. Free tier ready.
 
-Drop-in alternativa open source para o feature [Markdown for Agents da Cloudflare](https://blog.cloudflare.com/markdown-for-agents/) (só Pro+). Serve markdown para AI agents via content negotiation, compat 1:1 com a API oficial.
+Drop-in open-source alternative to Cloudflare's [Markdown for Agents](https://blog.cloudflare.com/markdown-for-agents/) feature (Pro+ only). Serves markdown to AI agents via content negotiation, 1:1 compatible with the official API.
 
 [![CI](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Status](https://img.shields.io/badge/status-pre--release-orange.svg)](#roadmap)
 
-> **Status:** Pre-release. `v0.1.0` ainda não publicado no npm — use via workspace protocol local por enquanto.
+> **Status:** Pre-release. `v0.1.0` is not yet published on npm — use via local workspace protocol for now.
 
 _(demo GIF coming soon)_
 
@@ -18,15 +18,15 @@ _(demo GIF coming soon)_
 npx create-markdown-edge-for-agents init
 ```
 
-Detecta seu framework (Astro, Hugo, ou custom), gera o worker + wrangler.toml, instala deps, aponta pro deploy.
+Detects your framework (Astro, Hugo, or custom), generates the worker + wrangler.toml, installs deps, and points you to deploy.
 
-## Por que
+## Why
 
-- Cloudflare's "Markdown for Agents" custa $25/mês (Pro) por zone
-- Indie hackers em Free tier ficam de fora
-- Workers OSS existentes não têm DX de 1 comando nem compat 1:1 com API oficial
+- Cloudflare's "Markdown for Agents" costs $25/mo (Pro) per zone
+- Indie hackers on the Free tier are left out
+- Existing OSS workers lack 1-command DX and 1:1 compatibility with the official API
 
-## Uso como lib
+## Usage as a lib
 
 ```ts
 import { createMarkdownWorker } from "@adhenawer/markdown-edge-for-agents";
@@ -44,22 +44,22 @@ export default createMarkdownWorker({
 |---|---|---|
 | `astro` | `article, main[data-page-type='post'], main.content` | nav, header, footer, aside, script, style, [aria-hidden] |
 | `hugo` | `article, main .post-content, main.single` | nav, header.site-header, footer, .post-nav, .social-share |
-| `custom` | `article` | (empty — você define) |
+| `custom` | `article` | (empty — you define it) |
 
 ## Config
 
-| Opção | Tipo | Default | Descrição |
+| Option | Type | Default | Description |
 |---|---|---|---|
-| `preset` | `"astro" \| "hugo" \| "custom"` | **required** | Base de config |
-| `selector` | `string` | do preset | Seletor CSS da área de conteúdo |
-| `strip` | `string[]` | do preset | Seletores a remover antes de converter |
-| `frontmatter` | `string[]` | `["title","author","description","lang"]` | Campos no YAML frontmatter |
-| `redirects` | `Record<string,string>` | `{}` | Redirects 301 antes da negociação |
-| `forceMarkdownForUserAgents` | `RegExp[]` | `[]` | UA patterns que forçam markdown |
+| `preset` | `"astro" \| "hugo" \| "custom"` | **required** | Config base |
+| `selector` | `string` | from preset | CSS selector for the content area |
+| `strip` | `string[]` | from preset | Selectors to remove before converting |
+| `frontmatter` | `string[]` | `["title","author","description","lang"]` | Fields in YAML frontmatter |
+| `redirects` | `Record<string,string>` | `{}` | 301 redirects before negotiation |
+| `forceMarkdownForUserAgents` | `RegExp[]` | `[]` | UA patterns that force markdown |
 | `cache` | `{maxAge,staleWhileRevalidate}` | `{3600,86400}` | Cache headers |
-| `debug` | `boolean` | `false` | Headers extras de debug |
+| `debug` | `boolean` | `false` | Extra debug headers |
 
-## Comparação com Cloudflare Pro
+## Comparison with Cloudflare Pro
 
 | Feature | Cloudflare Pro | markdown-edge-for-agents |
 |---|---|---|
@@ -67,18 +67,18 @@ export default createMarkdownWorker({
 | `x-markdown-tokens` header | Yes | Yes |
 | `Content-Signal` header | Yes | Yes |
 | `Vary: Accept` caching | Yes | Yes |
-| Preço | $25/mo por zone | Grátis |
-| Customização | Limitada | Total |
+| Price | $25/mo per zone | Free |
+| Customization | Limited | Full |
 
 ## Roadmap
 
 - v1.x: CF Workers only
 - v2.x: Multi-runtime (Vercel Edge, Deno Deploy, Bun, Node)
-- Comunidade: mais presets (Jekyll, 11ty, Next.js, Ghost)
+- Community: more presets (Jekyll, 11ty, Next.js, Ghost)
 
-## Contribuindo
+## Contributing
 
-Ver [CONTRIBUTING.md](./CONTRIBUTING.md). TDD obrigatório.
+See [CONTRIBUTING.md](./CONTRIBUTING.md). TDD is mandatory.
 
 ## License
 
