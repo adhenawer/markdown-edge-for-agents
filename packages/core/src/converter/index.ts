@@ -53,28 +53,95 @@ interface MinimalRewriter {
 
 type RewriterCtor = new () => MinimalRewriter;
 
-function getRewriter(): RewriterCtor {
-  const Ctor = (globalThis as unknown as { HTMLRewriter?: RewriterCtor }).HTMLRewriter;
-  if (!Ctor) {
-    throw new Error(
-      "HTMLRewriter is not available in this runtime. " +
-        "This module requires Cloudflare Workers or a compatible polyfill.",
-    );
+function getHTMLRewriter(): RewriterCtor | null {
+  try {
+    return (globalThis as unknown as { HTMLRewriter?: RewriterCtor }).HTMLRewriter ?? null;
+  } catch {
+    return null;
   }
-  return Ctor;
 }
 
+// ---------------------------------------------------------------------------
+// Regex fallback for cleanAndDetect (works in any runtime)
+// ---------------------------------------------------------------------------
+
 /**
- * Single HTMLRewriter pass: detect whether `selector` matches anywhere in
- * `html` and remove every element matching any entry in `strip`. Returns the
- * cleaned HTML plus a flag indicating whether the selector matched.
+ * Convert a simple CSS selector to a regex that matches the opening tag.
+ * Supports: tag names (`nav`), class selectors (`.foo`), tag.class (`div.bar`).
+ * Returns null for selectors too complex for regex (attribute selectors, etc).
  */
-async function cleanAndDetect(
+function selectorToRegex(sel: string): RegExp | null {
+  const trimmed = sel.trim();
+
+  // Tag selector: "nav", "script", "style", "header", "footer", "aside", "button"
+  if (/^[a-z][a-z0-9]*$/i.test(trimmed)) {
+    return new RegExp(`<${trimmed}[\\s>][\\s\\S]*?<\\/${trimmed}>`, "gi");
+  }
+
+  // Class selector: ".theme-bar", ".back-home"
+  const classMatch = trimmed.match(/^\.([a-zA-Z0-9_-]+)$/);
+  if (classMatch) {
+    return new RegExp(
+      `<[a-z][a-z0-9]*[^>]*\\bclass="[^"]*\\b${classMatch[1]}\\b[^"]*"[^>]*>[\\s\\S]*?<\\/[a-z][a-z0-9]*>`,
+      "gi",
+    );
+  }
+
+  // Tag + class: "div.foo"
+  const tagClassMatch = trimmed.match(/^([a-z][a-z0-9]*)\.([a-zA-Z0-9_-]+)$/i);
+  if (tagClassMatch) {
+    return new RegExp(
+      `<${tagClassMatch[1]}[^>]*\\bclass="[^"]*\\b${tagClassMatch[2]}\\b[^"]*"[^>]*>[\\s\\S]*?<\\/${tagClassMatch[1]}>`,
+      "gi",
+    );
+  }
+
+  // Too complex for regex — skip silently
+  return null;
+}
+
+function selectorExistsRegex(html: string, selector: string): boolean {
+  // Handle comma-separated selectors: "article, main.content"
+  const parts = selector.split(",").map((s) => s.trim());
+  for (const part of parts) {
+    const tagMatch = part.match(/^([a-z][a-z0-9]*)/i);
+    if (tagMatch && new RegExp(`<${tagMatch[1]}[\\s>]`, "i").test(html)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function cleanAndDetectRegex(
+  html: string,
+  selector: string,
+  strip: readonly string[],
+): { cleaned: string; selectorMatched: boolean } {
+  let cleaned = html;
+  for (const sel of strip) {
+    const rx = selectorToRegex(sel);
+    if (rx) {
+      cleaned = cleaned.replace(rx, "");
+    }
+  }
+  const selectorMatched = selectorExistsRegex(html, selector);
+  return { cleaned, selectorMatched };
+}
+
+// ---------------------------------------------------------------------------
+// HTMLRewriter path (preferred in CF Workers)
+// ---------------------------------------------------------------------------
+
+async function cleanAndDetectRewriter(
   html: string,
   selector: string,
   strip: readonly string[],
 ): Promise<{ cleaned: string; selectorMatched: boolean }> {
-  const Ctor = getRewriter();
+  const Ctor = getHTMLRewriter();
+  if (!Ctor) {
+    return cleanAndDetectRegex(html, selector, strip);
+  }
+
   const rewriter = new Ctor();
 
   for (const sel of strip) {
@@ -97,6 +164,19 @@ async function cleanAndDetect(
   });
   const cleaned = await rewriter.transform(response).text();
   return { cleaned, selectorMatched };
+}
+
+/**
+ * Single pass: detect whether `selector` matches anywhere in `html` and
+ * remove every element matching any entry in `strip`. Uses HTMLRewriter
+ * when available (CF Workers), falls back to regex in other runtimes.
+ */
+async function cleanAndDetect(
+  html: string,
+  selector: string,
+  strip: readonly string[],
+): Promise<{ cleaned: string; selectorMatched: boolean }> {
+  return cleanAndDetectRewriter(html, selector, strip);
 }
 
 export async function convertHtmlToMarkdown(

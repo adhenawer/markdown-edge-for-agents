@@ -1,7 +1,9 @@
 /**
- * Extract page metadata (title, description, author, lang) from raw HTML using
- * the Cloudflare Workers HTMLRewriter global. In Node tests a polyfill is
- * installed via the vitest setup file (see `tests/setup.ts`).
+ * Extract page metadata (title, description, author, lang) from raw HTML.
+ *
+ * Uses HTMLRewriter (streaming, native in CF Workers) when available.
+ * Falls back to regex extraction for Node.js / Bun / Deno / browser runtimes
+ * — enables local testing, multi-runtime usage, and the v2 roadmap.
  */
 
 export interface Meta {
@@ -10,6 +12,29 @@ export interface Meta {
   author: string;
   lang: string;
 }
+
+// ---------------------------------------------------------------------------
+// Regex fallback (works everywhere)
+// ---------------------------------------------------------------------------
+
+function extractMetaRegex(html: string): Meta {
+  const title = html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1]?.trim() ?? "";
+  const description =
+    html.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i)?.[1] ??
+    html.match(/<meta\s+content=["']([^"']*)["']\s+name=["']description["']/i)?.[1] ??
+    "";
+  const author =
+    html.match(/<meta\s+name=["']author["']\s+content=["']([^"']*)["']/i)?.[1] ??
+    html.match(/<meta\s+content=["']([^"']*)["']\s+name=["']author["']/i)?.[1] ??
+    "";
+  const lang = html.match(/<html[^>]*\slang=["']([^"']+)["']/i)?.[1] ?? "en";
+
+  return { title, description, author, lang };
+}
+
+// ---------------------------------------------------------------------------
+// HTMLRewriter path (streaming, preferred in CF Workers)
+// ---------------------------------------------------------------------------
 
 interface MinimalElement {
   getAttribute(name: string): string | null;
@@ -32,16 +57,20 @@ interface MinimalRewriter {
 
 type RewriterCtor = new () => MinimalRewriter;
 
-export async function extractMeta(html: string): Promise<Meta> {
-  const meta: Meta = { title: "", description: "", author: "", lang: "en" };
-
-  const Ctor = (globalThis as unknown as { HTMLRewriter: RewriterCtor }).HTMLRewriter;
-  if (!Ctor) {
-    throw new Error(
-      "HTMLRewriter is not available in this runtime. " +
-        "This module requires Cloudflare Workers or a compatible polyfill.",
-    );
+function getHTMLRewriter(): RewriterCtor | null {
+  try {
+    const Ctor = (globalThis as unknown as { HTMLRewriter?: RewriterCtor }).HTMLRewriter;
+    return Ctor ?? null;
+  } catch {
+    return null;
   }
+}
+
+async function extractMetaRewriter(html: string): Promise<Meta> {
+  const Ctor = getHTMLRewriter();
+  if (!Ctor) return extractMetaRegex(html);
+
+  const meta: Meta = { title: "", description: "", author: "", lang: "en" };
 
   const rewriter = new Ctor()
     .on("html", {
@@ -72,4 +101,12 @@ export async function extractMeta(html: string): Promise<Meta> {
   await rewriter.transform(response).text();
   meta.title = meta.title.trim();
   return meta;
+}
+
+// ---------------------------------------------------------------------------
+// Public API — auto-detects runtime
+// ---------------------------------------------------------------------------
+
+export async function extractMeta(html: string): Promise<Meta> {
+  return extractMetaRewriter(html);
 }
