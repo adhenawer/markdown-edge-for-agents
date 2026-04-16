@@ -7,6 +7,7 @@ export const userConfigSchema = z.object({
   frontmatter: z.array(z.string()).optional(),
   redirects: z.record(z.string(), z.string()).optional(),
   forceMarkdownForUserAgents: z.array(z.instanceof(RegExp)).optional(),
+  autoDetectAiCrawlers: z.boolean().optional(),
   cache: z
     .object({
       maxAge: z.number().min(0).optional(),

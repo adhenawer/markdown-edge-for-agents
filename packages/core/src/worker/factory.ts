@@ -43,7 +43,7 @@ export function createMarkdownWorker(userConfig: UserConfig): ExportedHandler {
     }
 
     // 2. Decide whether the caller wants markdown.
-    if (!wantsMarkdown(request, config.forceMarkdownForUserAgents)) {
+    if (!wantsMarkdown(request, config.forceMarkdownForUserAgents, config.autoDetectAiCrawlers)) {
       return fetch(request);
     }
 

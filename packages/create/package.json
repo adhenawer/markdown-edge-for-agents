@@ -1,6 +1,6 @@
 {
   "name": "create-markdown-edge-for-agents",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Scaffolder CLI for markdown-edge-for-agents",
   "repository": "github:adhenawer/markdown-edge-for-agents",
   "license": "MIT",

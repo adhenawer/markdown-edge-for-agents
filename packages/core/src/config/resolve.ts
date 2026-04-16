@@ -30,6 +30,7 @@ export function resolveConfig(user: UserConfig): ResolvedConfig {
     redirects: parsed.data.redirects ?? DEFAULTS.redirects,
     forceMarkdownForUserAgents:
       parsed.data.forceMarkdownForUserAgents ?? DEFAULTS.forceMarkdownForUserAgents,
+    autoDetectAiCrawlers: parsed.data.autoDetectAiCrawlers ?? false,
     cache: {
       maxAge: parsed.data.cache?.maxAge ?? DEFAULTS.cache.maxAge,
       staleWhileRevalidate:
