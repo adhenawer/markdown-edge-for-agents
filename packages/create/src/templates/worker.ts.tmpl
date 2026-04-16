@@ -1,0 +1,8 @@
+import { createMarkdownWorker } from "@adhenawer/markdown-edge-for-agents";
+
+export default createMarkdownWorker({
+  preset: "{{PRESET}}",{{#SELECTOR}}
+  selector: "{{SELECTOR}}",{{/SELECTOR}}{{#STRIP}}
+  strip: {{STRIP}},{{/STRIP}}{{#REDIRECTS}}
+  redirects: {{REDIRECTS}},{{/REDIRECTS}}
+});
