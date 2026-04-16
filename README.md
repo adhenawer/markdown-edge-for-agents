@@ -1,14 +1,13 @@
-# markdown-edge-for-agents
-
-> Markdown for Agents, on any Edge. Free tier ready.
-
-Drop-in open-source alternative to Cloudflare's [Markdown for Agents](https://blog.cloudflare.com/markdown-for-agents/) feature (Pro+ only). Serves markdown to AI agents via content negotiation, 1:1 compatible with the official API.
+# Markdown Edge for Agents
 
 [![CI](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Status](https://img.shields.io/badge/status-pre--release-orange.svg)](#roadmap)
-
 [![npm](https://img.shields.io/npm/v/@adhenawer-pkg/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer-pkg/markdown-edge-for-agents)
+
+> Markdown for Agents, on any Edge. Free tier ready.
+
+Drop-in open-source alternative to Cloudflare's [Markdown for Agents](https://blog.cloudflare.com/markdown-for-agents/) feature (Pro+ only). Serves markdown to AI agents via content negotiation, 1:1 compatible with the official API.
 
 ![demo](./docs/demo.gif)
 
