@@ -30,17 +30,22 @@ class CFHTMLRewriter {
   transform(response: Response): Response {
     const entries = this.entries;
     const self = this;
-    // Build a new Response whose body is the transformed HTML. We lazily
-    // transform when the consumer reads text(): this mirrors the CF API where
-    // `transform(resp).text()` returns the fully rewritten body.
-    const transformed = new Response(
-      (async () => {
-        const src = await response.text();
-        return await self._run(src, entries);
-      })().then((t) => new Blob([t], { type: "text/html" })),
-      { headers: response.headers }
-    );
-    return transformed;
+    // Build a new Response whose body is a ReadableStream backed by the
+    // transformed HTML. This mirrors the CF API where `transform(resp).text()`
+    // yields the fully rewritten body.
+    const stream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        try {
+          const src = await response.text();
+          const transformed = await self._run(src, entries);
+          controller.enqueue(new TextEncoder().encode(transformed));
+          controller.close();
+        } catch (err) {
+          controller.error(err);
+        }
+      },
+    });
+    return new Response(stream, { headers: response.headers });
   }
 
   private async _run(html: string, entries: HandlerEntry[]): Promise<string> {
