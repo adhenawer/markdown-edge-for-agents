@@ -85,8 +85,66 @@ Built-in presets configure `selector` and `strip` for popular frameworks:
 | `frontmatter` | `string[]` | `["title","author","description","lang"]` | YAML frontmatter fields |
 | `redirects` | `Record<string, string>` | `{}` | 301 redirects (run before negotiation) |
 | `forceMarkdownForUserAgents` | `RegExp[]` | `[]` | Force markdown for specific user agents |
+| `autoDetectAiCrawlers` | `boolean` | `false` | Auto-serve markdown to known AI bots (see below) |
 | `cache` | `{ maxAge, staleWhileRevalidate }` | `{ 3600, 86400 }` | Cache-Control values |
 | `debug` | `boolean` | `false` | Adds extra debug headers |
+
+## AI crawler auto-detection
+
+Most AI crawlers **don't send `Accept: text/markdown`** — they fetch your page as a browser would and parse the noisy HTML. Cloudflare's Pro feature only responds to that header, making it nearly useless in practice ([source](https://dri.es/markdown-llms-txt-and-ai-crawlers)).
+
+Enable `autoDetectAiCrawlers` to serve clean markdown automatically when a known AI bot visits:
+
+```ts
+export default createMarkdownWorker({
+  preset: "astro",
+  autoDetectAiCrawlers: true,
+});
+```
+
+### Built-in crawler list (16 bots)
+
+| Provider | User-Agent patterns |
+|---|---|
+| OpenAI | `GPTBot`, `ChatGPT-User`, `OAI-SearchBot` |
+| Anthropic | `ClaudeBot`, `Claude-Web`, `anthropic-ai` |
+| Google | `Google-Extended`, `Googlebot-AI` |
+| Perplexity | `PerplexityBot` |
+| Apple | `Applebot-Extended` |
+| Cohere | `cohere-ai` |
+| Meta | `Meta-ExternalAgent`, `FacebookExternalHit` |
+| Amazon | `Amazonbot` |
+| Common Crawl | `CCBot` |
+| ByteDance | `Bytespider` |
+| Microsoft | `bingbot` |
+| You.com | `YouBot` |
+
+The list is exported as `KNOWN_AI_CRAWLERS` for transparency:
+
+```ts
+import { KNOWN_AI_CRAWLERS } from "@adhenawer-pkg/markdown-edge-for-agents";
+console.log(KNOWN_AI_CRAWLERS); // RegExp[]
+```
+
+You can also combine auto-detection with custom patterns:
+
+```ts
+export default createMarkdownWorker({
+  preset: "custom",
+  selector: "article",
+  autoDetectAiCrawlers: true,
+  forceMarkdownForUserAgents: [/MyInternalBot/i],
+});
+```
+
+### Comparison with Cloudflare Pro
+
+| Behavior | Cloudflare Pro | This lib |
+|---|---|---|
+| Responds to `Accept: text/markdown` | Yes | Yes |
+| Auto-serves markdown to AI crawlers by User-Agent | **No** | **Yes (16 bots)** |
+
+This is a real differentiator: your content reaches AI systems in clean markdown even when they don't explicitly ask for it.
 
 ## Response headers (1:1 Cloudflare compat)
 

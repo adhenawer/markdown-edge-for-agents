@@ -55,14 +55,33 @@ export default createMarkdownWorker({
 | `frontmatter` | `string[]` | `["title","author","description","lang"]` | Fields in YAML frontmatter |
 | `redirects` | `Record<string,string>` | `{}` | 301 redirects before negotiation |
 | `forceMarkdownForUserAgents` | `RegExp[]` | `[]` | UA patterns that force markdown |
+| `autoDetectAiCrawlers` | `boolean` | `false` | Auto-serve markdown to 16 known AI bots |
 | `cache` | `{maxAge,staleWhileRevalidate}` | `{3600,86400}` | Cache headers |
 | `debug` | `boolean` | `false` | Extra debug headers |
+
+## AI crawler auto-detection
+
+Most AI crawlers **don't send `Accept: text/markdown`**. Cloudflare Pro only responds to that header — making it nearly useless in practice ([research](https://dri.es/markdown-llms-txt-and-ai-crawlers): 0 real AI crawler requests used the header).
+
+One line fixes this:
+
+```ts
+export default createMarkdownWorker({
+  preset: "astro",
+  autoDetectAiCrawlers: true, // GPTBot, ClaudeBot, PerplexityBot, etc.
+});
+```
+
+16 bots detected out of the box: GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, Claude-Web, anthropic-ai, Google-Extended, Googlebot-AI, PerplexityBot, Applebot-Extended, cohere-ai, Meta-ExternalAgent, FacebookExternalHit, Amazonbot, CCBot, Bytespider, bingbot, YouBot.
+
+Full list exported as `KNOWN_AI_CRAWLERS` for transparency. See [core README](./packages/core/README.md#ai-crawler-auto-detection) for details.
 
 ## Comparison with Cloudflare Pro
 
 | Feature | Cloudflare Pro | markdown-edge-for-agents |
 |---|---|---|
 | Content negotiation via `Accept` | Yes | Yes |
+| Auto-detect AI crawlers by User-Agent | **No** | **Yes (16 bots)** |
 | `x-markdown-tokens` header | Yes | Yes |
 | `Content-Signal` header | Yes | Yes |
 | `Vary: Accept` caching | Yes | Yes |
