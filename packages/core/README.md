@@ -6,6 +6,7 @@ Drop-in open-source alternative to Cloudflare's [Markdown for Agents](https://bl
 
 [![CI](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@adhenawer-pkg/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer-pkg/markdown-edge-for-agents)
+[![npm downloads](https://img.shields.io/npm/dm/@adhenawer-pkg/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer-pkg/markdown-edge-for-agents)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/adhenawer/markdown-edge-for-agents/blob/main/LICENSE)
 
 ## Install

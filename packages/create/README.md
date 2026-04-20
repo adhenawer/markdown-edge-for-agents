@@ -6,6 +6,7 @@ CLI companion to [`@adhenawer-pkg/markdown-edge-for-agents`](https://www.npmjs.c
 
 [![CI](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/adhenawer/markdown-edge-for-agents/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/create-markdown-edge-for-agents.svg)](https://npmjs.com/package/create-markdown-edge-for-agents)
+[![npm downloads](https://img.shields.io/npm/dm/create-markdown-edge-for-agents.svg)](https://npmjs.com/package/create-markdown-edge-for-agents)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/adhenawer/markdown-edge-for-agents/blob/main/LICENSE)
 
 ## Quick start

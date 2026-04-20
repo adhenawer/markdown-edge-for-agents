@@ -4,6 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Status](https://img.shields.io/badge/status-pre--release-orange.svg)](#roadmap)
 [![npm](https://img.shields.io/npm/v/@adhenawer-pkg/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer-pkg/markdown-edge-for-agents)
+[![npm downloads](https://img.shields.io/npm/dm/@adhenawer-pkg/markdown-edge-for-agents.svg)](https://npmjs.com/package/@adhenawer-pkg/markdown-edge-for-agents)
 
 > Markdown for Agents, on any Edge. Free tier ready.
 
